@@ -30,6 +30,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Get response templates
         uses: actions/checkout@v6
         with:
@@ -75,6 +83,9 @@ jobs:
             echo "Tests directory not found"
             exit 1
           fi
+
+      - name: Run backend tests
+        run: pytest
 
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
